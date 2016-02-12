@@ -1,5 +1,5 @@
 {
-  "name": "@risingstack/graffiti",
+  "name": "@wellth-app/graffiti",
   "version": "3.0.2",
   "description": "Mongoose adapter for graffiti (Node.js GraphQL ORM)",
   "main": "lib/index.js",
@@ -12,7 +12,7 @@
   "author": "RisingStack",
   "repository": {
     "type": "git",
-    "url": "git@github.com:RisingStack/graffiti.git"
+    "url": "git@github.com:wellth-app/graffiti.git"
   },
   "license": "MIT",
   "keywords": [
@@ -24,9 +24,9 @@
     "ORM"
   ],
   "bugs": {
-    "url": "https://github.com/RisingStack/graffiti/issues"
+    "url": "https://github.com/wellth-app/graffiti/issues"
   },
-  "homepage": "https://github.com/RisingStack/graffiti#readme",
+  "homepage": "https://github.com/wellth-app/graffiti#readme",
   "dependencies": {
     "boom": "^3.1.2"
   },
