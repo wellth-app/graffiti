@@ -13,10 +13,14 @@ function accepts(type) {
 
 export default function middleware({ graphiql = true, context = {}, schema = required() } = {}) {
   return function *middleware(next) {
-    if (isPath(this) && (isPost(this) || isGet(this))) {
-      const body = this.request.body;
-      const { query, variables } = Object.assign({}, body, this.query);
-
+    const body = this.request.body;
+    const { query, variables } = Object.assign({}, body, this.query);
+    if (this.path === graphiqlPath && isGet(this)) {
+      if (accepts.call(this, 'html') && graphiql) {
+        this.body = renderGraphiQL({ query, variables });
+        return this.body;
+      }
+    } else if (isPath(this) && (isPost(this) || isGet(this))) {
       if (isGet(this) && accepts.call(this, 'html') && graphiql) {
         this.body = renderGraphiQL({ query, variables });
         return this.body;
