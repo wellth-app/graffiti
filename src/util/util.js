@@ -50,15 +50,10 @@ export function renderGraphiQL({ query, variables, version = GRAPHIQL_VERSION } 
             }
           });
           // if variables was provided, try to format it.
-          var authToken = null;
           if (parameters.variables) {
             try {
               parameters.variables =
                 JSON.stringify(JSON.parse(parameters.variables), null, 2);
-              var tempParams = JSON.parse(parameters.variables);
-              if(tempParams.authToken) {
-                authToken = tempParams.authToken;
-              }
             } catch (e) {
               // Do nothing, we want to display the invalid JSON as a string, rather
               // than present an error.
@@ -84,8 +79,8 @@ export function renderGraphiQL({ query, variables, version = GRAPHIQL_VERSION } 
           // Defines a GraphQL fetcher using the fetch API.
           function graphQLFetcher(graphQLParams) {
             var headers = { 'Content-Type': 'application/json' };
-            if(authToken) {
-              headers['Authorization'] = 'Bearer '+authToken;
+            if(parameters.authToken) {
+              headers['Authorization'] = 'Bearer '+parameters.authToken;
             }
             return fetch(window.location.origin + '/graphql', {
               method: 'post',
