@@ -11,7 +11,7 @@ function accepts(type) {
   return this.headers && this.headers.accept && this.headers.accept.includes(type);
 }
 
-export default function middleware({ graphiql = true, context = this, schema = required() } = {}) {
+export default function middleware({ graphiql = true, context = {}, schema = required() } = {}) {
   return function *middleware(next) {
     if (isPath(this) && (isPost(this) || isGet(this))) {
       const body = this.request.body;
@@ -33,7 +33,11 @@ export default function middleware({ graphiql = true, context = this, schema = r
         // ignore
       }
 
-      this.body = yield graphql(schema, query, { request: this.request }, context, parsedVariables);
+      if (Object.keys(context).length === 0) {
+        context = this;
+      }
+
+      this.body = yield graphql(schema, query, this, context, parsedVariables);
       return this.body;
     }
 
